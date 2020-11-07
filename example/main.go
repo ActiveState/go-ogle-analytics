@@ -1,6 +1,10 @@
 package main
 
-import "github.com/jpillora/go-ogle-analytics"
+import (
+	"context"
+
+	ga "github.com/ActiveState/go-ogle-analytics"
+)
 
 func main() {
 	client, err := ga.NewClient("UA-30305960-4")
@@ -8,7 +12,7 @@ func main() {
 		panic(err)
 	}
 
-	err = client.Send(ga.NewEvent("Foo", "Bar").Label("Bazz"))
+	err = client.SendWithContext(context.Background(), ga.NewEvent("Foo", "Bar").Label("Bazz"))
 	if err != nil {
 		panic(err)
 	}

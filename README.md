@@ -1,7 +1,3 @@
-## Version 1.0b
-
-This repository is forked from https://github.com/jpillora/go-ogle-analytics 2 May 2017 and added additional parameters to support sending multiple custom dimensions (see branch v1.0b)
-
 ## Go-ogle Analytics
 
 Track and monitor your Go programs for free with Google Analytics
@@ -18,9 +14,9 @@ go get -v github.com/jpillora/go-ogle-analytics
 
 ### API
 
-Create a new `client` and `Send()` a 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception' or 'timing' event.
+Create a new `client` and `SendWithContext()` a 'pageview', 'screenview', 'event', 'transaction', 'item', 'social', 'exception' or 'timing' event.
 
-#### http://godoc.org/github.com/jpillora/go-ogle-analytics
+#### http://godoc.org/github.com/ActiveState/go-ogle-analytics
 
 ### Quick Usage
 
@@ -31,7 +27,11 @@ Create a new `client` and `Send()` a 'pageview', 'screenview', 'event', 'transac
 	``` go
 	package main
 
-	import "github.com/jpillora/go-ogle-analytics"
+	import (
+      "context"
+
+      "github.com/ActiveState/go-ogle-analytics"
+  )
 
 	func main() {
 		client, err := ga.NewClient("UA-XXXXXXXX-Y")
@@ -39,7 +39,7 @@ Create a new `client` and `Send()` a 'pageview', 'screenview', 'event', 'transac
 			panic(err)
 		}
 
-		err = client.Send(ga.NewEvent("Foo", "Bar").Label("Bazz"))
+		err = client.SendWithContext(context.Background(), ga.NewEvent("Foo", "Bar").Label("Bazz"))
 		if err != nil {
 			panic(err)
 		}
